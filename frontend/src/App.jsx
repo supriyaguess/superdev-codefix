@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchBar from './components/SearchBar';
-import StatusFilter from './components/StatusFilter';
-import TaskTable from './components/TaskTable';
-import { useTasks } from './hooks/useTasks';
+import AssigneeFilter from './components/AssigneeFilter';
+import TaskSection from './components/TaskSection';
+import { fetchAssignees } from './api';
+
+const SECTIONS = [
+  { status: 'OPEN', title: 'Open' },
+  { status: 'IN_PROGRESS', title: 'In Progress' },
+  { status: 'DONE', title: 'Done' },
+];
 
 export default function App() {
   const [query, setQuery] = useState('');
-  const [status, setStatus] = useState('');
-  const [page, setPage] = useState(1);
+  const [assignee, setAssignee] = useState('');
+  const [assignees, setAssignees] = useState([]);
 
-  const { tasks, total, loading, error } = useTasks(query, status, page, 10);
-
-  const totalPages = Math.ceil(total / 10);
+  useEffect(() => {
+    fetchAssignees()
+      .then(setAssignees)
+      .catch(() => setAssignees([]));
+  }, []);
 
   return (
     <div className="app">
@@ -21,25 +29,15 @@ export default function App() {
       </header>
 
       <div className="controls">
-        <SearchBar value={query} onChange={(v) => { setQuery(v); setPage(1); }} />
-        <StatusFilter value={status} onChange={(v) => { setStatus(v); setPage(1); }} />
+        <SearchBar value={query} onChange={setQuery} />
+        <AssigneeFilter value={assignee} options={assignees} onChange={setAssignee} />
       </div>
 
-      <TaskTable tasks={tasks} loading={loading} error={error} />
-
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
-            Previous
-          </button>
-          <span>
-            Page {page} of {totalPages}
-          </span>
-          <button disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>
-            Next
-          </button>
-        </div>
-      )}
+      <div className="board">
+        {SECTIONS.map((section) => (
+          <TaskSection key={section.status} {...section} query={query} assignee={assignee} />
+        ))}
+      </div>
     </div>
   );
 }

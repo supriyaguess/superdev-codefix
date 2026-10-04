@@ -11,3 +11,4 @@ CREATE TABLE IF NOT EXISTS tasks (
 
 CREATE INDEX IF NOT EXISTS idx_tasks_archived_created ON tasks (archived, created_at, id);
 CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks (status);
+CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks (assignee);
