@@ -8,3 +8,6 @@ CREATE TABLE IF NOT EXISTS tasks (
     assignee    VARCHAR(100),
     created_at  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX IF NOT EXISTS idx_tasks_archived_created ON tasks (archived, created_at, id);
+CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks (status);
