@@ -144,3 +144,5 @@ INSERT INTO tasks (title, description, status, priority, archived, assignee, cre
 
 INSERT INTO tasks (title, description, status, priority, archived, assignee, created_at) VALUES
 ('Implement rate limiting per user', 'Rate limiting should be per authenticated user not per IP to handle shared networks', 'OPEN', 'MEDIUM', FALSE, 'Eve', '2024-03-03 10:30:00');
+
+UPDATE tasks SET due_date = DATEADD('DAY', MOD(id * 7, 45) - 15, CURRENT_DATE);

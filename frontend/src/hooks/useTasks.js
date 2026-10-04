@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchTasks } from '../api';
 
-export function useTasks(query, status, assignee, page, pageSize) {
+export function useTasks(filters, status, page, pageSize) {
   const [tasks, setTasks] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ export function useTasks(query, status, assignee, page, pageSize) {
     setError(null);
 
     const timer = setTimeout(() => {
-      fetchTasks({ query, status, assignee, page, pageSize })
+      fetchTasks({ filters, status, page, pageSize })
         .then((data) => {
           if (cancelled) return;
           setTasks(data.items);
@@ -31,7 +31,7 @@ export function useTasks(query, status, assignee, page, pageSize) {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [query, status, assignee, page, pageSize]);
+  }, [filters, status, page, pageSize]);
 
   return { tasks, total, loading, error };
 }

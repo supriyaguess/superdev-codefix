@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     priority    VARCHAR(10)   DEFAULT 'MEDIUM',
     archived    BOOLEAN       DEFAULT FALSE,
     assignee    VARCHAR(100),
-    created_at  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
+    created_at  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
+    due_date    DATE
 );
 
 CREATE INDEX IF NOT EXISTS idx_tasks_archived_created ON tasks (archived, created_at, id);

@@ -1,6 +1,8 @@
 export default function SearchBar({ value, onChange }) {
   return (
-    <div className="search-wrapper">
+    <label className="field search-field">
+      <span className="field-label">Search</span>
+      <div className="search-wrapper">
       <input
         type="text"
         className="search-input"
@@ -13,6 +15,7 @@ export default function SearchBar({ value, onChange }) {
           &times;
         </button>
       )}
-    </div>
+      </div>
+    </label>
   );
 }

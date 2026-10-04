@@ -1,5 +1,6 @@
 package com.internal.tasktracker;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record TaskResponse(
@@ -9,7 +10,8 @@ public record TaskResponse(
         String status,
         String priority,
         String assignee,
-        LocalDateTime createdAt) {
+        LocalDateTime createdAt,
+        LocalDate dueDate) {
 
     public static TaskResponse from(Task task) {
         return new TaskResponse(
@@ -19,6 +21,7 @@ public record TaskResponse(
                 task.getStatus(),
                 task.getPriority(),
                 task.getAssignee(),
-                task.getCreatedAt());
+                task.getCreatedAt(),
+                task.getDueDate());
     }
 }

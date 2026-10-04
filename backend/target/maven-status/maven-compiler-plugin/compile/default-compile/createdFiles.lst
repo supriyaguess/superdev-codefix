@@ -1,6 +1,8 @@
 com/internal/tasktracker/GlobalExceptionHandler.class
+com/internal/tasktracker/AssigneeSummary.class
 com/internal/tasktracker/TaskStatus.class
 com/internal/tasktracker/TaskTrackerApplication.class
+com/internal/tasktracker/TaskSummary.class
 com/internal/tasktracker/TaskResponse.class
 com/internal/tasktracker/Task.class
 com/internal/tasktracker/TaskRepository.class
